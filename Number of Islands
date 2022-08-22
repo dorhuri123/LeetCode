@@ -1,0 +1,27 @@
+class Solution {
+public:
+    void help(vector<vector<char>>& grid,int row,int col){
+        int n = grid.size(),m = grid[0].size();
+        if(row < 0 || row >= n || col >= m || col < 0 || grid[row][col] == '0'){
+            return;
+        }
+        grid[row][col] = '0';
+        help(grid,row+1,col);
+        help(grid,row,col+1);
+        help(grid,row-1,col);
+        help(grid,row,col-1);
+    }
+    int numIslands(vector<vector<char>>& grid) {
+        int n = grid.size(),m = grid[0].size();
+        int res = 0;
+        for (int i = 0; i < n; i++){
+            for (int j = 0; j < m; j++){
+                if(grid[i][j] == '1'){
+                    res++;
+                    help(grid,i,j);
+                }       
+            }
+        }
+        return res;
+    }
+};
