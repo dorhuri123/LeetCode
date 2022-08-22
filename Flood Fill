@@ -1,0 +1,25 @@
+class Solution {
+public:
+    void flood_helper(vector<vector<int>>& image, int sr, int sc, int color,int startCol){
+        int n = image.size(),m = image[0].size();
+        if(sr < 0 || sr > n-1 || sc < 0 || sc > m-1){
+            return;
+        }
+        if(color == image[sr][sc]){
+            return;
+        }
+        if(startCol != image[sr][sc]){
+            return;
+        }
+        image[sr][sc]=color;
+        flood_helper(image, sr, sc-1, color,startCol);
+        flood_helper(image, sr, sc+1, color,startCol);
+        flood_helper(image, sr-1, sc, color,startCol);
+        flood_helper(image, sr+1, sc, color,startCol);           
+    }
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
+        int startCol = image[sr][sc];
+        flood_helper(image,sr,sc,color,startCol);
+        return image;
+    }
+};
