@@ -1,0 +1,14 @@
+class Solution {
+public:
+   int grid[101][101]={0};
+    int uniquePaths(int m, int n) {
+        if (m==1||n==1) {
+            grid[m][n]=1;
+            return 1;
+        }
+        if(grid[m][n] != 0){
+            return grid[m][n];
+        }
+        return grid[m][n] = uniquePaths(m-1,n) + uniquePaths(m,n-1);
+    }
+};
