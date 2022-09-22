@@ -1,0 +1,77 @@
+class Solution {
+public:
+    bool check_square(vector<vector<char>>& board,int col, int row){
+        char num;
+        int temp[9] = {0};
+        for(int i = 0;i<3;i++){
+           if((num=board[row][col]) != '.'){
+               int n =(num - '0') - 1;
+                temp[n]++;
+               if(temp[n]>1){
+                   return false;
+                }
+            }
+            col++;
+            if((num=board[row][col]) != '.'){
+               int n = (num - '0') - 1;
+                temp[n]++;
+                 if(temp[n]>1){
+                   return false;
+                }
+            }
+            col++;
+            if((num=board[row][col]) != '.'){
+               int n = (num - '0') - 1;
+                temp[n]++;
+                 if(temp[n]>1){
+                   return false;
+                }
+            }
+            col-=2;
+            row++;
+        }
+        return true;
+    }
+    bool isValidSudoku(vector<vector<char>>& board) {
+        char num;
+        bool flag = true;
+        int temp[9] = {0}, temp2[9] = {0},empty[9]={0};
+        for(int i = 0;i < 9;i++){
+            for(int j = 0;j < 9;j++){
+                if((num=board[i][j]) != '.'){
+                    int n = (num - '0') - 1;
+                    temp[n]++;
+                    if(temp[n]>1){
+                        return false;
+                    }
+                }
+                if((num=board[j][i]) != '.'){
+                    int n = (num - '0') - 1;
+                    temp2[n]++;
+                    if(temp2[n]>1){
+                        return false;
+                    }
+                }
+            }
+            for(int k =0;k<9;k++){
+                temp[k]=0;
+                temp2[k]=0;
+            }
+        }
+        for(int i = 0;i < 9;i+=3){
+            flag = check_square(board,i,0);
+            if(!flag){
+                return false;
+            }
+            flag = check_square(board,i,3);
+             if(!flag){
+                return false;
+            }
+            flag = check_square(board,i,6);
+             if(!flag){
+                return false;
+            }
+        }
+        return true;
+    }
+};
