@@ -1,0 +1,28 @@
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        vector<vector<int>> v;
+        std::sort(nums.begin(), nums.end());
+        int size = nums.size();
+        for(int i = 0; i < size;i++){
+            if (i != 0) {
+                if (nums[i] == nums[i - 1]) {
+                    continue;
+                }
+            }
+            for(int j = i+1; j < size-1;j++){
+                if (j != (i + 1)) {
+                    if (nums[j] == nums[j - 1]) {
+                         continue;
+                    }
+                }
+                int num = -(nums[i] + nums[j]);
+                if (std::binary_search(nums.begin() + j + 1, nums.end(), num)) {
+                    vector<int> part{nums[i],nums[j],num};
+                    v.push_back(part);
+                }
+            }
+        }
+        return v;
+    }
+};
