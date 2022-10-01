@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int evalRPN(vector<string>& tokens) {
+        int size = tokens.size(),flag=0;
+        long long res,num1,num2;
+        if(size == 1){
+            return stoi(tokens[0]);
+        }
+        stack<int> st;
+        for(int i = 0; i<size;i++){
+            if(isdigit(tokens[i][0]) || tokens[i].size() >= 2){
+                st.push(stoi(tokens[i]));
+            }
+            else{
+                    num1 = st.top();
+                    st.pop();
+                    num2 = st.top();
+                    st.pop();
+                    if(tokens[i][0] == '+'){
+                        res = num1 + num2;
+                    }
+                    else if(tokens[i][0] == '-'){
+                        res = num2 - num1;
+                    }
+                    else if(tokens[i][0] == '*'){
+                        res = num1 * num2;
+                    }
+                    else if(tokens[i][0] == '/'){
+                        res = num2 / num1;
+                    }
+                    st.push(res);
+                }
+            }
+                return st.top();
+    }
+};
