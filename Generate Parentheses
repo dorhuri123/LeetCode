@@ -1,0 +1,19 @@
+class Solution {
+public:
+    vector<string>res;
+    void help(int close,int open,string s){
+        if(open ==0 &&close ==0){
+            res.push_back(s);
+        }
+        if(close>0){
+            help(close-1,open+1,s+'(');
+        }
+        if(open > 0){
+            help(close,open-1,s+')');
+        }
+    }
+    vector<string> generateParenthesis(int n) {
+        help(n,0,"");
+        return res;
+    }
+};
