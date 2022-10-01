@@ -1,0 +1,59 @@
+class Solution {
+public:
+    bool largerEquale(vector<int> v1, vector<int> v2){
+        for(int i =0; i<52;i++){
+            if(v1[i]>v2[i]){
+                return false;
+            }
+        }
+        return true;
+    }
+    string minWindow(string s, string t) {
+        int min = INT_MAX,start=0,end=0,sizeS=s.size(),sizeT=t.size();
+        string res = "",temp="";
+        vector<int> v1(52,0);
+        vector<int> v2(52,0);
+        if(sizeT>sizeS){
+            return res;
+        }
+        for(auto it : t){
+            if(islower(it)){
+                v1[it-'a']++;
+            }
+            else{
+                v1[(it-'A')+26]++;
+            }
+        }
+        while(end<=sizeS){
+            if(largerEquale(v1,v2)){
+                if(min>temp.size()){
+                    res = temp;
+                    cout <<temp <<endl;
+                    cout <<"A" <<endl;
+                    min = temp.size();
+                }
+                if(islower(s[start])){
+                    v2[s[start]-'a']--;
+                }
+                else{
+                    v2[(s[start]-'A')+26]--;
+                }
+                temp.erase(temp.begin());
+                start++;
+                }
+            else{
+                if(end<sizeS){
+                    if(islower(s[end])){
+                        v2[s[end]-'a']++;
+                    }
+                    else{
+                        v2[(s[end]-'A')+26]++;
+                    }
+                    temp+=s[end];
+                }
+                    end++;
+                }
+        }
+        return res;
+    }
+};
